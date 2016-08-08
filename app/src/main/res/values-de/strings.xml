@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">WiFi-Sinus</string>
+    <string name="action_settings">Einstellungen</string>
+    <string name="freq_active">Ausgabe aktiv</string>
+    <string name="header_frequency">Frequenz:</string>
+    <string name="header_phase">Phase:</string>
+    <string name="mode_curves">Filterkurven</string>
+    <string name="mode_freq">Ausgabefrequenz</string>
+    <string name="mode_sweep">Sweep</string>
+    <string name="mode_tools">Werkzeuge</string>
+    <string name="navigation_drawer_close">Schließe die Navigationsleiste</string>
+    <string name="navigation_drawer_open">Öffne die Navigationsleiste</string>
+    <string name="pref_header_general">Allgemeine Einstellungen</string>
+    <string name="settings_adress_summary">Die Adresse des DDS Generator im WLAN</string>
+    <string name="settings_adress_title">Server Addresse</string>
+    <string name="settings_client">Client Einstellungen</string>
+    <string name="settings_server">Server Einstellungen</string>
+    <string name="title_activity_client_settings">Clienteinstellungen</string>
+</resources>

@@ -21,6 +21,7 @@ public class DDSAnswer {
         _err_location = err_location;
     }
 
+    /*
     public DDSAnswer(boolean success,String message,Integer http_code,String target)
     {
         _http_code = http_code;
@@ -29,8 +30,8 @@ public class DDSAnswer {
         _target = target;
         _err_location = DDSErrorLocation.Server;
     }
-
-    public DDSAnswer(Integer http_code,String message,String target,DDSErrorLocation err_location)
+*/
+    public DDSAnswer(String message,Integer http_code,String target,DDSErrorLocation err_location)
     {
         _http_code = http_code;
         if(_http_code == 200)
@@ -53,7 +54,7 @@ public class DDSAnswer {
         }
         else
         {
-            return "Request on target " + _target + " failed! Status Code" + _http_code.toString() + " Got message: " + _message;
+            return "Request on target " + _target + " failed! Status Code: " + _http_code.toString() + " Got message: " + _message;
         }
     }
 

@@ -5,4 +5,67 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <string name="action_settings">Settings</string>
+    <string name="mode_freq">Output Frequency</string>
+    <string name="mode_sweep">Sweep</string>
+    <string name="mode_curves">Filter Curves</string>
+    <string name="settings_server">Server Settings</string>
+    <string name="settings_client">Client Settings</string>
+    <string name="mode_tools">Tools</string>
+    <string name="title_activity_client_settings">Client Settings</string>
+    <string name="pref_header_general">General Settings</string>
+    <string name="settings_adress_title">Server Address</string>
+    <string name="settings_adress_summary">The Adress of the DDS Generator in the WLAN</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string-array name="freq_units_array">
+        <item>Hz</item>
+        <item>kHz</item>
+        <item>MHz</item>
+    </string-array>
+
+    <string-array name="phase_array">
+        <item>0°</item>
+        <item>11.25°</item>
+        <item>22.5°</item>
+        <item>33.75°</item>
+        <item>45°</item>
+        <item>56.25°</item>
+        <item>67.5°</item>
+        <item>78.75°</item>
+        <item>90°</item>
+        <item>101.25°</item>
+        <item>112.5°</item>
+        <item>123.75°</item>
+        <item>135°</item>
+        <item>146.25°</item>
+        <item>157.5°</item>
+        <item>168.75°</item>
+        <item>180°</item>
+        <item>191.25°</item>
+        <item>202.5°</item>
+        <item>213.75°</item>
+        <item>225°</item>s
+        <item>236.25°</item>
+        <item>247.5°</item>
+        <item>258.75°</item>
+        <item>270°</item>
+        <item>281.25°</item>
+        <item>292.5°</item>
+        <item>303.75°</item>
+        <item>315°</item>
+        <item>326.25°</item>
+        <item>337.5°</item>
+        <item>348.75°</item>
+
+
+    </string-array>
+    <string name="header_frequency">Set Frequency:</string>
+    <string name="freq_active">Output Active</string>
+    <string name="header_phase">Phase:</string>
+
+    <!-- Strings related to Settings -->
+
+
 </resources>

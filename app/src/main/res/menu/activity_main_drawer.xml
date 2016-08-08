@@ -3,33 +3,33 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_camera"
+            android:id="@+id/nav_freq"
             android:icon="@drawable/ic_menu_camera"
-            android:title="Frequency" />
+            android:title="@string/mode_freq" />
         <item
-            android:id="@+id/nav_gallery"
+            android:id="@+id/nav_sweep"
             android:icon="@drawable/ic_menu_gallery"
-            android:title="Sweep" />
+            android:title="@string/mode_sweep" />
         <item
-            android:id="@+id/nav_slideshow"
+            android:id="@+id/nav_curves"
             android:icon="@drawable/ic_menu_slideshow"
-            android:title="Filter Curves" />
+            android:title="@string/mode_curves" />
         <item
-            android:id="@+id/nav_manage"
+            android:id="@+id/nav_tools"
             android:icon="@drawable/ic_menu_manage"
-            android:title="Tools" />
+            android:title="@string/mode_tools" />
     </group>
 
     <item android:title="Settings">
         <menu>
             <item
-                android:id="@+id/nav_share"
+                android:id="@+id/nav_server_settings"
                 android:icon="@drawable/ic_menu_share"
-                android:title="Server Settings" />
+                android:title="@string/settings_server" />
             <item
-                android:id="@+id/nav_send"
+                android:id="@+id/nav_client_settings"
                 android:icon="@drawable/ic_menu_send"
-                android:title="Client Settings" />
+                android:title="@string/settings_client" />
         </menu>
     </item>
 
