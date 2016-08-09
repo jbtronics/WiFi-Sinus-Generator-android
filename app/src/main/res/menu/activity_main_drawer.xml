@@ -4,19 +4,19 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_freq"
-            android:icon="@drawable/ic_menu_camera"
+            android:icon="@drawable/ic_menu_freq"
             android:title="@string/mode_freq" />
         <item
             android:id="@+id/nav_sweep"
-            android:icon="@drawable/ic_menu_gallery"
+            android:icon="@drawable/ic_menu_sweep"
             android:title="@string/mode_sweep" />
         <item
             android:id="@+id/nav_curves"
-            android:icon="@drawable/ic_menu_slideshow"
+            android:icon="@drawable/ic_menu_curves"
             android:title="@string/mode_curves" />
         <item
             android:id="@+id/nav_tools"
-            android:icon="@drawable/ic_menu_manage"
+            android:icon="@drawable/ic_menu_tools"
             android:title="@string/mode_tools" />
     </group>
 
@@ -24,11 +24,11 @@
         <menu>
             <item
                 android:id="@+id/nav_server_settings"
-                android:icon="@drawable/ic_menu_share"
+                android:icon="@drawable/ic_menu_server_settings"
                 android:title="@string/settings_server" />
             <item
                 android:id="@+id/nav_client_settings"
-                android:icon="@drawable/ic_menu_send"
+                android:icon="@drawable/ic_menu_client_settings"
                 android:title="@string/settings_client" />
         </menu>
     </item>

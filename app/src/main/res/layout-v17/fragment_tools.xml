@@ -62,11 +62,10 @@
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true"
             android:textAlignment="textEnd"
-            android:enabled="false"
-            android:text="0" />
+            android:enabled="true" />
 
         <SeekBar
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/seek_red_pwm"
             android:layout_below="@+id/radioGroup_red"
@@ -91,8 +90,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/radioGroup_green"
             android:layout_below="@+id/text_header_green"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true">
+            android:layout_alignParentLeft="true">
 
             <RadioButton
                 android:layout_width="wrap_content"
@@ -123,12 +121,10 @@
             android:textAlignment="textEnd"
             android:layout_alignBottom="@+id/radioGroup_green"
             android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true"
-            android:text="0"
-            android:enabled="false" />
+            android:layout_alignParentEnd="true" />
 
         <SeekBar
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/seek_green_pwm"
             android:layout_alignParentEnd="true"

@@ -1,14 +1,21 @@
 package jbtronics.wifi_sinus;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
+import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.RadioGroup;
 
 import wifi_sinus.api.DDSAnswer;
+import wifi_sinus.api.LedState;
+import wifi_sinus.api.WiFiSinus;
 
 
 /**
@@ -19,7 +26,7 @@ import wifi_sinus.api.DDSAnswer;
  * Use the {@link ToolsFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class ToolsFragment extends Fragment {
+public class ToolsFragment extends Fragment implements WiFiSinus.onDDSError{
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -31,7 +38,14 @@ public class ToolsFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
+    private RadioGroup group_red;
+    private RadioGroup group_green;
+    private EditText edit_red_pwm;
+    private EditText edit_green_pwm;
+
     private OnFragmentInteractionListener mListener;
+
+    WiFiSinus _dds;
 
     public ToolsFragment() {
         // Required empty public constructor
@@ -68,7 +82,70 @@ public class ToolsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_tools, container, false);
+        View v = inflater.inflate(R.layout.fragment_tools, container, false);
+
+        group_red = (RadioGroup) v.findViewById(R.id.radioGroup_red);
+        group_green = (RadioGroup) v.findViewById(R.id.radioGroup_green);
+
+        edit_green_pwm = (EditText) v.findViewById(R.id.edit_green_pwm);
+        edit_red_pwm = (EditText) v.findViewById(R.id.edit_red_pwm);
+
+        v.findViewById(R.id.edit_red_pwm).setEnabled(false);
+        v.findViewById(R.id.edit_green_pwm).setEnabled(false);
+        ((EditText) v.findViewById(R.id.edit_red_pwm)).setText("512");
+        ((EditText) v.findViewById(R.id.edit_green_pwm)).setText("512");
+
+        group_red.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                switch(checkedId)
+                {
+                    case R.id.radio_red_on:
+                        //edit_red_pwm.setInputType(InputType.TYPE_NULL);
+                        edit_red_pwm.setEnabled(false);
+                        _dds.setRed(LedState.ON);
+                        break;
+                    case R.id.radio_red_off:
+                        //edit_red_pwm.setInputType(InputType.TYPE_NULL);
+                        edit_red_pwm.setEnabled(false);
+                        _dds.setRed(LedState.OFF);
+                        break;
+                    case R.id.radio_red_pwm:
+                        edit_red_pwm.setEnabled(true);
+                        //edit_red_pwm.setInputType(InputType.TYPE_CLASS_NUMBER);
+                        break;
+
+                }
+            }
+        });
+
+        group_green.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                switch (checkedId)
+                {
+                    case R.id.radio_green_on:
+                        edit_green_pwm.setEnabled(false);
+                        //edit_green_pwm.setInputType(InputType.TYPE_NULL);
+                        _dds.setGreen(LedState.ON);
+                        break;
+                    case R.id.radio_green_off:
+                        edit_green_pwm.setEnabled(false);
+                        //edit_green_pwm.setInputType(InputType.TYPE_NULL);
+                        _dds.setGreen(LedState.OFF);
+                        break;
+                    case R.id.radio_green_pwm:
+                        edit_green_pwm.setEnabled(true);
+                        //edit_green_pwm.setInputType(InputType.TYPE_CLASS_NUMBER);
+                        break;
+
+
+
+                }
+            }
+        });
+
+        return v;
     }
 
 
@@ -81,12 +158,25 @@ public class ToolsFragment extends Fragment {
             throw new RuntimeException(context.toString()
                     + " must implement OnFragmentInteractionListener");
         }
+
+        if(_dds == null)
+        {
+            SharedPreferences prefs = getActivity().getPreferences(Context.MODE_PRIVATE);
+            String s = prefs.getString("client_server_address","http://192.168.1.125");
+            _dds = new WiFiSinus(s,getActivity());
+            _dds.setOnDDSError(this);
+        }
     }
 
     @Override
     public void onDetach() {
         super.onDetach();
         mListener = null;
+    }
+
+    @Override
+    public void onDDSError(DDSAnswer error) {
+        mListener.onUpdateError(error);
     }
 
     /**

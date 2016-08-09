@@ -64,6 +64,11 @@
     <string name="header_frequency">Set Frequency:</string>
     <string name="freq_active">Output Active</string>
     <string name="header_phase">Phase:</string>
+    <string name="tools_header_red">Red LED:</string>
+    <string name="tools_header_green">Green LED:</string>
+    <string name="tools_led_on">ON</string>
+    <string name="tools_led_off">OFF</string>
+    <string name="tools_led_pwm">PWM:</string>
 
     <!-- Strings related to Settings -->
 
