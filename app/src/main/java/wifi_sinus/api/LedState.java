@@ -16,9 +16,10 @@
 package wifi_sinus.api;
 
 /**
- * Created by janhb on 05.08.2016.
+ * This Enum represents the state of the Leds.
  */
 public enum LedState {
     ON,
-    OFF
+    OFF,
+    PWM
 }

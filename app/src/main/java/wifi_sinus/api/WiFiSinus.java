@@ -18,20 +18,18 @@ package wifi_sinus.api;
 import android.content.Context;
 import android.util.Log;
 
-import java.net.URL;
 import com.android.volley.*;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
 /**
- * Created by janhb on 05.08.2016.
- *
+ *  A Class to control the WiFi-Sinus Generator.
  */
 public class WiFiSinus {
 
-    private String _url;
-    private RequestQueue _queue;
-    private Context _context;
+    private final String _url;
+    private final RequestQueue _queue;
+    private final Context _context;
     private boolean _finished;
     private DDSAnswer _result;
     private int _result_status; //The Status Code of the result
@@ -45,6 +43,7 @@ public class WiFiSinus {
     public final static Double[] PHASE_VALS = {0.0, 11.25, 22.5, 33.75, 45.0, 56.25, 67.5, 78.75, 90.0, 101.25, 112.5, 123.75, 135.0, 146.25, 157.5, 168.75,
             180.0, 191.25, 202.5, 213.75, 225.0, 236.25, 247.5, 258.75, 270.0, 281.25, 292.5, 303.75, 315.0, 326.25, 337.5, 348.75};
 
+    private DDSMode _mode;
 
     public interface onDDSError
     {
@@ -75,7 +74,8 @@ public class WiFiSinus {
      */
     public void DDSDown()
     {
-        //TODO: Implement DDS Down
+        setValue("mode","down");
+        _mode = DDSMode.down;
     }
 
     /**
@@ -83,7 +83,26 @@ public class WiFiSinus {
      */
     public void DDSUp()
     {
-        setValue("freq",_frequency.toString());
+        setValue("mode","up");
+        _mode = DDSMode.up;
+    }
+
+    /**
+     * Checks if the Output is active.
+     * @return true if Output is active.
+     */
+    public boolean isUp()
+    {
+        return (_mode == DDSMode.up);
+    }
+
+    /**
+     * Gives the active mode of the DDS Generator
+     * @return the active Mode
+     */
+    public DDSMode getMode()
+    {
+        return _mode;
     }
 
     /**
@@ -207,7 +226,7 @@ public class WiFiSinus {
                         _finished = true;
                         _result = new DDSAnswer(response,_result_status,set_url,DDSErrorLocation.Server);
                         Log.d("WiFi-DDS",_result.toString());
-                        HandleError(_result);
+                        HandleResult(_result);
                     }
                 }, new Response.ErrorListener() {
             @Override

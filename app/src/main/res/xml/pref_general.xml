@@ -26,8 +26,8 @@
         android:maxLines="1"
         android:selectAllOnFocus="true"
         android:singleLine="true"
-        android:title="@string/settings_adress_title"
-        android:summary="@string/settings_adress_summary"
+        android:title="@string/settings_address_title"
+        android:summary="@string/settings_address_summary"
         />
 
 </PreferenceScreen>

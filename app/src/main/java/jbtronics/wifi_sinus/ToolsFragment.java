@@ -17,11 +17,8 @@ package jbtronics.wifi_sinus;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
-import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,12 +31,7 @@ import wifi_sinus.api.WiFiSinus;
 
 
 /**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link ToolsFragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link ToolsFragment#newInstance} factory method to
- * create an instance of this fragment.
+ * This Fragments shows helper tools.
  */
 public class ToolsFragment extends Fragment implements WiFiSinus.onDDSError{
     // TODO: Rename parameter arguments, choose names that match
@@ -58,9 +50,9 @@ public class ToolsFragment extends Fragment implements WiFiSinus.onDDSError{
     private EditText edit_red_pwm;
     private EditText edit_green_pwm;
 
-    private OnFragmentInteractionListener mListener;
+    private WiFiSinus.onDDSError mListener;
 
-    WiFiSinus _dds;
+    private WiFiSinus _dds;
 
     public ToolsFragment() {
         // Required empty public constructor
@@ -116,18 +108,15 @@ public class ToolsFragment extends Fragment implements WiFiSinus.onDDSError{
                 switch(checkedId)
                 {
                     case R.id.radio_red_on:
-                        //edit_red_pwm.setInputType(InputType.TYPE_NULL);
                         edit_red_pwm.setEnabled(false);
                         _dds.setRed(LedState.ON);
                         break;
                     case R.id.radio_red_off:
-                        //edit_red_pwm.setInputType(InputType.TYPE_NULL);
                         edit_red_pwm.setEnabled(false);
                         _dds.setRed(LedState.OFF);
                         break;
                     case R.id.radio_red_pwm:
                         edit_red_pwm.setEnabled(true);
-                        //edit_red_pwm.setInputType(InputType.TYPE_CLASS_NUMBER);
                         break;
 
                 }
@@ -167,11 +156,11 @@ public class ToolsFragment extends Fragment implements WiFiSinus.onDDSError{
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
+        if (context instanceof WiFiSinus.onDDSError) {
+            mListener = (WiFiSinus.onDDSError) context;
         } else {
             throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
+                    + " must implement OnDDSError Interface");
         }
 
         if(_dds == null)
@@ -191,7 +180,7 @@ public class ToolsFragment extends Fragment implements WiFiSinus.onDDSError{
 
     @Override
     public void onDDSError(DDSAnswer error) {
-        mListener.onUpdateError(error);
+        mListener.onDDSError(error);
     }
 
     /**
@@ -204,8 +193,4 @@ public class ToolsFragment extends Fragment implements WiFiSinus.onDDSError{
      * "http://developer.android.com/training/basics/fragments/communicating.html"
      * >Communicating with Other Fragments</a> for more information.
      */
-    public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void  onUpdateError(DDSAnswer error);
-    }
 }

@@ -27,8 +27,8 @@
     <string name="navigation_drawer_close">Schließe die Navigationsleiste</string>
     <string name="navigation_drawer_open">Öffne die Navigationsleiste</string>
     <string name="pref_header_general">Allgemeine Einstellungen</string>
-    <string name="settings_adress_summary">Die Adresse des DDS Generator im WLAN</string>
-    <string name="settings_adress_title">Server Addresse</string>
+    <string name="settings_address_summary">Die Adresse des DDS Generator im WLAN</string>
+    <string name="settings_address_title">Server Adresse</string>
     <string name="settings_client">Client Einstellungen</string>
     <string name="settings_server">Server Einstellungen</string>
     <string name="title_activity_client_settings">Clienteinstellungen</string>

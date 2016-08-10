@@ -16,11 +16,9 @@
 package wifi_sinus.api;
 
 /**
- * This Enum represents where Errors can happen.
+ * This Enum represents the Modes (up or down) the Generator can have.
  */
-public enum DDSErrorLocation {
-    NoError,
-    Server,
-    Connection
-
+public enum DDSMode {
+    down,
+    up
 }

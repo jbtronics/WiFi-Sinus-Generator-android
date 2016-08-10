@@ -16,14 +16,9 @@
 package jbtronics.wifi_sinus;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.text.Editable;
-import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -32,18 +27,18 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.EditText;
 import android.widget.Toast;
 
 import wifi_sinus.api.DDSAnswer;
-import wifi_sinus.api.LedState;
 import wifi_sinus.api.WiFiSinus;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, ToolsFragment.OnFragmentInteractionListener,FrequencyFragment.OnFragmentInteractionListener{
+        implements NavigationView.OnNavigationItemSelectedListener, WiFiSinus.onDDSError{
 
-    FrequencyFragment frequencyFragment;
-    ToolsFragment toolsFragment;
+    private FrequencyFragment frequencyFragment;
+    private ToolsFragment toolsFragment;
+    private CurvesFragment curvesFragment;
+    private SweepFragment sweepFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +58,8 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
         frequencyFragment = new FrequencyFragment();
         toolsFragment = new ToolsFragment();
+        curvesFragment = new CurvesFragment();
+        sweepFragment = new SweepFragment();
 
         FragmentManager fm = getSupportFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
@@ -115,7 +112,7 @@ public class MainActivity extends AppCompatActivity
         {
             FragmentManager fm = getSupportFragmentManager();
             FragmentTransaction ft = fm.beginTransaction();
-            ft.replace(R.id.main_frame, frequencyFragment, frequencyFragment.TAG);
+            ft.replace(R.id.main_frame, frequencyFragment, FrequencyFragment.TAG);
             ft.commit();
         }
         else if(id == R.id.nav_tools)
@@ -123,6 +120,20 @@ public class MainActivity extends AppCompatActivity
             FragmentManager fm = getSupportFragmentManager();
             FragmentTransaction ft = fm.beginTransaction();
             ft.replace(R.id.main_frame, toolsFragment, ToolsFragment.TAG);
+            ft.commit();
+        }
+        else if(id == R.id.nav_sweep)
+        {
+            FragmentManager fm = getSupportFragmentManager();
+            FragmentTransaction ft = fm.beginTransaction();
+            ft.replace(R.id.main_frame,  sweepFragment, SweepFragment.TAG);
+            ft.commit();
+        }
+        else if(id == R.id.nav_curves)
+        {
+            FragmentManager fm = getSupportFragmentManager();
+            FragmentTransaction ft = fm.beginTransaction();
+            ft.replace(R.id.main_frame,curvesFragment, CurvesFragment.TAG);
             ft.commit();
         }
 
@@ -133,8 +144,8 @@ public class MainActivity extends AppCompatActivity
 
 
     @Override
-    public void onUpdateError(DDSAnswer error) {
-        Toast t = Toast.makeText(this,error.toString(),Toast.LENGTH_LONG);
+    public void onDDSError(DDSAnswer error) {
+        Toast t = Toast.makeText(this,error.toString(),Toast.LENGTH_SHORT);
         t.show();
         //Snackbar.make(findViewById(R.id.main_frame),error.toString(),Snackbar.LENGTH_LONG).show();
 

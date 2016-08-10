@@ -21,10 +21,10 @@ package wifi_sinus.api;
 
 public class DDSAnswer {
 
-    private boolean _success;
-    private String _message;
-    private Integer _http_code;
-    private String _target;
+    private final boolean _success;
+    private final String _message;
+    private final Integer _http_code;
+    private final String _target;
     private DDSErrorLocation _err_location;
 
     public DDSAnswer(boolean success,String message,Integer http_code,String target,DDSErrorLocation err_location)
@@ -49,16 +49,10 @@ public class DDSAnswer {
     public DDSAnswer(String message,Integer http_code,String target,DDSErrorLocation err_location)
     {
         _http_code = http_code;
-        if(_http_code == 200)
-        {
-            _success = true;
-        }
-        else
-        {
-            _success = false;
-        }
+        _success = _http_code == 200;
         _message = message;
         _target = target;
+        _err_location = err_location;
     }
 
     public String toString()
@@ -75,6 +69,7 @@ public class DDSAnswer {
 
     public boolean getSuccess()
     {
+
         return _success;
     }
 }
