@@ -36,4 +36,5 @@
     <string name="tools_header_red">Rote LED:</string>
     <string name="tools_led_off">Aus</string>
     <string name="tools_led_on">An</string>
+    <string name="hello_blank_fragment">BlaBlub</string>
 </resources>

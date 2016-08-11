@@ -150,15 +150,15 @@ public class WiFiSinus {
 
     /**
      * Sets the red led either on or off.
-     * @param value The desired led state.
+     * @param on The desired led state.
      */
-    public void setRed(Integer value)
+    public void setRed(boolean on)
     {
-        if(value == 1)
+        if(on)
         {
             setValue("red","on");
         }
-        else if (value == 0)
+        else
         {
             setValue("red","off");
         }
@@ -191,15 +191,15 @@ public class WiFiSinus {
 
     /**
      * Sets the green led either on or off.
-     * @param value The desired led state.
+     * @param on The desired led state.
      */
-    public void setGreen(Integer value)
+    public void setGreen(boolean on)
     {
-        if(value == 1)
+        if(on)
         {
             setValue("green","on");
         }
-        else if (value == 0)
+        else
         {
             setValue("green","off");
         }

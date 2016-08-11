@@ -24,6 +24,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.RadioGroup;
+import android.widget.SeekBar;
 
 import wifi_sinus.api.DDSAnswer;
 import wifi_sinus.api.LedState;
@@ -53,6 +54,7 @@ public class ToolsFragment extends Fragment implements WiFiSinus.onDDSError{
     private WiFiSinus.onDDSError mListener;
 
     private WiFiSinus _dds;
+
 
     public ToolsFragment() {
         // Required empty public constructor
@@ -102,6 +104,12 @@ public class ToolsFragment extends Fragment implements WiFiSinus.onDDSError{
         ((EditText) v.findViewById(R.id.edit_red_pwm)).setText("512");
         ((EditText) v.findViewById(R.id.edit_green_pwm)).setText("512");
 
+        final SeekBar seek_red = (SeekBar) v.findViewById(R.id.seek_red_pwm);
+        final SeekBar seek_green = (SeekBar) v.findViewById(R.id.seek_green_pwm);
+
+        seek_red.setEnabled(false);
+        seek_green.setEnabled(false);
+
         group_red.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
@@ -109,16 +117,18 @@ public class ToolsFragment extends Fragment implements WiFiSinus.onDDSError{
                 {
                     case R.id.radio_red_on:
                         edit_red_pwm.setEnabled(false);
+                        seek_red.setEnabled(false);
                         _dds.setRed(LedState.ON);
                         break;
                     case R.id.radio_red_off:
                         edit_red_pwm.setEnabled(false);
+                        seek_red.setEnabled(false);
                         _dds.setRed(LedState.OFF);
                         break;
                     case R.id.radio_red_pwm:
                         edit_red_pwm.setEnabled(true);
+                        seek_red.setEnabled(true);
                         break;
-
                 }
             }
         });
@@ -130,28 +140,73 @@ public class ToolsFragment extends Fragment implements WiFiSinus.onDDSError{
                 {
                     case R.id.radio_green_on:
                         edit_green_pwm.setEnabled(false);
-                        //edit_green_pwm.setInputType(InputType.TYPE_NULL);
+                        seek_green.setEnabled(false);
                         _dds.setGreen(LedState.ON);
                         break;
                     case R.id.radio_green_off:
                         edit_green_pwm.setEnabled(false);
-                        //edit_green_pwm.setInputType(InputType.TYPE_NULL);
+                        seek_green.setEnabled(false);
                         _dds.setGreen(LedState.OFF);
                         break;
                     case R.id.radio_green_pwm:
                         edit_green_pwm.setEnabled(true);
-                        //edit_green_pwm.setInputType(InputType.TYPE_CLASS_NUMBER);
+                        seek_green.setEnabled(true);
                         break;
-
-
-
                 }
+            }
+        });
+
+
+
+        seek_red.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+                edit_red_pwm.setText(Integer.valueOf(i).toString());
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+                updateRedPWM();
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
+
+        seek_green.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+                edit_green_pwm.setText(Integer.valueOf(i).toString());
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+                updateGreenPWM();
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
             }
         });
 
         return v;
     }
 
+
+    private void updateRedPWM()
+    {
+        Integer pwm = Integer.valueOf(edit_red_pwm.getText().toString());
+        _dds.RedPWM(pwm);
+    }
+
+    private void updateGreenPWM()
+    {
+        Integer pwm = Integer.valueOf(edit_green_pwm.getText().toString());
+        _dds.GreenPWM(pwm);
+    }
 
     @Override
     public void onAttach(Context context) {
