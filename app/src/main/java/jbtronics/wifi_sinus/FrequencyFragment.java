@@ -211,39 +211,11 @@ public class FrequencyFragment extends Fragment implements WiFiSinus.onDDSError 
 
     private void updateFrequency()
     {
-        edit_freq.setText(getDisplayFreq());
+        edit_freq.setText(_dds.getDisplayFreq(spinner_freq_units.getSelectedItem().toString()));
         updateSeekbar();
-        switch_active.setChecked(true);
+        //switch_active.setChecked(true);
         //TODO: Uncomment this to activate DDS Update
         _dds.setFrequency(frequency);
-    }
-
-
-
-
-    private void updateFrequency(int change)
-    {
-        Integer i = getRealFrequency(Double.parseDouble(edit_freq.getText().toString()));
-        if (i<0 || i>50000000) {
-            //TODO: Implement  Out of Boundary Warning
-        }
-        else {
-            frequency = i;
-        }
-
-        if(frequency + change <=1 )
-        {
-            frequency = 1;          //Freq must be at least 0 Hz
-        }
-        else if((frequency + change )> 50000000)
-        {
-            frequency = 50000000;   //maximum Freq = 50MHz
-        }
-        else
-        {
-            frequency = frequency + change;
-        }
-        updateFrequency();
     }
 
     /**
@@ -251,16 +223,9 @@ public class FrequencyFragment extends Fragment implements WiFiSinus.onDDSError 
      */
     private void updateEdit()
     {
-        Integer i = getRealFrequency(Double.parseDouble(edit_freq.getText().toString()));
-        if (i<0 || i>50000000) {
-            //TODO: Implement  Out of Boundary Warning
-        }
-        else if(i != null)
-        {
-            frequency = i;
-            updateFrequency();
-        }
-
+        Double d = Double.parseDouble(edit_freq.getText().toString());
+        String unit = spinner_freq_units.getSelectedItem().toString();
+        _dds.setFrequency(d,unit);
     }
 
 
@@ -269,51 +234,56 @@ public class FrequencyFragment extends Fragment implements WiFiSinus.onDDSError 
         View.OnClickListener cl = new View.OnClickListener() {
             @Override
             public void onClick(final View view) {
+
+                Double freq = Double.parseDouble(edit_freq.getText().toString());
+                String unit = spinner_freq_units.getSelectedItem().toString();
+                _dds.setFrequency(freq,unit);
                 switch(view.getId()) {
                     case R.id.btn_m1:
-                        updateFrequency(-1);
+                        _dds.changeFrequency(-1);
                         break;
                     case R.id.btn_m1k:
-                        updateFrequency(-1000);
+                        _dds.changeFrequency(-1000);
                         break;
                     case R.id.btn_m1M:
-                        updateFrequency(-1000000);
+                        _dds.changeFrequency(-1000000);
                         break;
                     case R.id.btn_m10:
-                        updateFrequency(-10);
+                        _dds.changeFrequency(-10);
                         break;
                     case R.id.btn_m10k:
-                        updateFrequency(-10000);
+                        _dds.changeFrequency(-10000);
                         break;
                     case R.id.btn_m100:
-                        updateFrequency(-100);
+                        _dds.changeFrequency(-100);
                         break;
                     case R.id.btn_m100k:
-                        updateFrequency(-100000);
+                        _dds.changeFrequency(-100000);
                         break;
 
                     case R.id.btn_p1:
-                        updateFrequency(1);
+                        _dds.changeFrequency(1);
                         break;
                     case R.id.btn_p1k:
-                        updateFrequency(1000);
+                        _dds.changeFrequency(1000);
                         break;
                     case R.id.btn_p1M:
-                        updateFrequency(1000000);
+                        _dds.changeFrequency(1000000);
                         break;
                     case R.id.btn_p10:
-                        updateFrequency(10);
+                        _dds.changeFrequency(10);
                         break;
                     case R.id.btn_p10k:
-                        updateFrequency(10000);
+                        _dds.changeFrequency(10000);
                         break;
                     case R.id.btn_p100:
-                        updateFrequency(100);
+                        _dds.changeFrequency(100);
                         break;
                     case R.id.btn_p100k:
-                        updateFrequency(100000);
+                        _dds.changeFrequency(100000);
                         break;
                 }
+                edit_freq.setText(_dds.getDisplayFreq(spinner_freq_units.getSelectedItem().toString()));
             }
         };
 
@@ -333,46 +303,7 @@ public class FrequencyFragment extends Fragment implements WiFiSinus.onDDSError 
         v.findViewById(R.id.btn_p100).setOnClickListener(cl);
         v.findViewById(R.id.btn_p100k).setOnClickListener(cl);
     }
-
-    private String getDisplayFreq()
-    {
-        Double d = frequency.doubleValue();
-        String s =  spinner_freq_units.getSelectedItem().toString();
-        switch (s) {
-            case "Hz":
-                return d.toString();
-            case "kHz":
-                d = d / 1000;
-                return d.toString();
-            case "MHz":
-                d = d / 1000000;
-                return d.toString();
-        }
-        return d.toString();
-    }
-
-    private Integer getRealFrequency(Double d)
-    {
-        String s =  spinner_freq_units.getSelectedItem().toString();
-        Integer i = d.intValue();
-
-        if(s.equals("Hz"))
-        {
-            i = d.intValue();
-            return i;
-        }
-        else if(s.equals("kHz"))
-        {
-            d = d * 1000;
-            i = d.intValue();
-        }
-        else if(s.equals("MHz"))
-        {
-            d = d * 1000000;
-            i = d.intValue();
-        }
-        return i;
-    }
+    
 
     private void updateFreqFromSeekBar(int progress)
     {

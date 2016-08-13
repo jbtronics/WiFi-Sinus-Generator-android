@@ -85,7 +85,8 @@
                     android:layout_span="0"
                     android:spinnerMode="dropdown"
                     android:textAlignment="textStart"
-                    android:layout_marginRight="3dp" />
+                    android:layout_marginRight="3dp"
+                    android:entries="@array/freq_units_array" />
             </TableRow>
 
         </TableLayout>

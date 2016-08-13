@@ -45,6 +45,9 @@ public class WiFiSinus {
 
     private DDSMode _mode;
 
+    private static final int FREQ_MAX = 50000000; //50MHz
+    private static final int FREQ_MIN = 1; //1Hz
+
     public interface onDDSError
     {
         public void onDDSError(DDSAnswer error);
@@ -85,6 +88,58 @@ public class WiFiSinus {
     {
         setValue("mode","up");
         _mode = DDSMode.up;
+    }
+
+    /**
+     * Activates the sweep output.
+     * @param min The lower Frequency of the sweep (in Hz)
+     * @param max The upper Freuquency of the sweep (in Hz)
+     * @param delay The delay between two steps (in us)
+     * @param resolution The width of a step (in Hz)
+     * @param reverse Should the sweep go from max to min?
+     * @param pong Should the sweep change its direction after touch a border.
+     */
+    public void activateSweep(int min,int max, int delay, int resolution, boolean reverse, boolean pong)
+    {
+        setSweep("min",Integer.toString(min));
+        setSweep("max",Integer.toString(max));
+        setSweep("delay",Integer.toString(delay));
+        setSweep("resolution",Integer.toString(resolution));
+        setSweep("reverse",BooleanToString(reverse));
+        setSweep("pong",BooleanToString(pong));
+        setSweep("mode","on");    //Activate sweep
+    }
+
+    /**
+     * Activates the sweep output.
+     * @param min The lower Frequency of the sweep (in Hz)
+     * @param max The upper Freuquency of the sweep (in Hz)
+     * @param delay The delay between two steps (in us)
+     */
+    public void activateSweep(int min, int max, int delay)
+    {
+        activateSweep(min,max,delay,1,false,false);
+    }
+
+    private String BooleanToString(boolean value)
+    {
+        if(value)
+        {
+            return "true";
+        }
+        else
+        {
+            return "false";
+        }
+    }
+
+    /**
+     * Deactivates the sweep output.
+     *
+     */
+    public void deactivateSweep()
+    {
+        setSweep("mode","off");
     }
 
     /**
@@ -217,8 +272,18 @@ public class WiFiSinus {
 
     private void setValue(String param,String value)
     {
+        makeRequest("set",param,value);
+    }
+
+    private void setSweep(String param,String value)
+    {
+        makeRequest("sweep",param,value);
+    }
+
+    private void makeRequest(String operation,String param,String value)
+    {
         _finished = false;
-        final String set_url = String.format(_url + "/set?%1$s=%2$s", param, value);
+        final String set_url = String.format(_url + "/" + operation + "?%1$s=%2$s", param, value);
         StringRequest stringRequest = new StringRequest(Request.Method.GET, set_url,
                 new Response.Listener<String>() {
                     @Override
@@ -246,14 +311,13 @@ public class WiFiSinus {
             @Override
             protected Response<String> parseNetworkResponse(NetworkResponse response) {
                 if (response != null) {
-                     _result_status =  response.statusCode;
+                    _result_status =  response.statusCode;
                 }
                 return super.parseNetworkResponse(response);
             }
         };
 
-
-// Add the request to the RequestQueue.
+        // Add the request to the RequestQueue.
         _queue.add(stringRequest);
     }
 
@@ -304,6 +368,74 @@ public class WiFiSinus {
     {
         _finished = false;
         return _result;
+    }
+
+    /**
+     * Get the frequency to show from a given unit
+     * @param unit the Unit as a String
+     * @return the Frequency in the unit as String
+     */
+    public String getDisplayFreq(String unit)
+    {
+        Double d = _frequency.doubleValue();
+        switch (unit) {
+            case "Hz":
+                return d.toString();
+            case "kHz":
+                d = d / 1000;
+                return d.toString();
+            case "MHz":
+                d = d / 1000000;
+                return d.toString();
+        }
+        return d.toString();
+    }
+
+    public void setFrequency(Double d, String unit)
+    {
+        Integer i = d.intValue();
+
+        if(unit.equals("Hz"))
+        {
+            i = d.intValue();
+            setFrequency(i);
+            return;
+        }
+        else if(unit.equals("kHz"))
+        {
+            d = d * 1000;
+            i = d.intValue();
+        }
+        else if(unit.equals("MHz"))
+        {
+            d = d * 1000000;
+            i = d.intValue();
+        }
+        setFrequency(i);
+        return;
+    }
+
+    public void changeFrequency(int change,String unit)
+    {
+        //Integer i = getRealFrequency(Double.parseDouble(edit_freq.getText().toString()));
+        if(_frequency + change <= FREQ_MIN )
+        {
+            _frequency = FREQ_MIN;          //Freq must be at least 0 Hz
+        }
+        else if((_frequency + change )> FREQ_MAX)
+        {
+            _frequency = FREQ_MAX;   //maximum Freq = 50MHz
+        }
+        else
+        {
+            _frequency = _frequency + change;
+        }
+        setFrequency(_frequency);
+    }
+
+    public void changeFrequency(int change)
+    {
+        changeFrequency(change,"Hz");
     }
 
 }
