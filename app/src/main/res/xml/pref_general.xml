@@ -30,4 +30,10 @@
         android:summary="@string/settings_address_summary"
         />
 
+    <Preference
+        android:title="Changelog"
+        android:summary="Show Changelog"
+        android:key="pref_changelog"
+        />
+
 </PreferenceScreen>

@@ -71,12 +71,13 @@
                     android:inputType="number"
                     android:ems="10"
                     android:id="@+id/edit_sweep_max"
-                    android:layout_column="0" />
+                    android:layout_column="0"
+                    android:text="1000" />
 
                 <Spinner
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:id="@+id/spinner"
+                    android:id="@+id/spinner_sweep_max"
                     android:layout_column="1" />
             </TableRow>
 
@@ -101,12 +102,13 @@
                     android:id="@+id/edit_sweep_min"
                     android:layout_column="0"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:text="100" />
 
                 <Spinner
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:id="@+id/spinner2"
+                    android:id="@+id/spinner_sweep_min"
                     android:layout_column="1" />
             </TableRow>
 
@@ -133,12 +135,13 @@
                     android:id="@+id/edit_sweep_delay"
                     android:layout_column="0"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:text="100" />
 
                 <Spinner
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:id="@+id/spinner3"
+                    android:id="@+id/spinner_sweep_delay"
                     android:layout_column="1" />
             </TableRow>
 
@@ -162,15 +165,16 @@
                 <EditText
                     android:inputType="number"
                     android:ems="10"
-                    android:id="@+id/editText4"
+                    android:id="@+id/edit_sweep_res"
                     android:layout_column="0"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:text="1" />
 
                 <Spinner
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:id="@+id/spinner4"
+                    android:id="@+id/spinner_sweep_resolution"
                     android:layout_column="1" />
             </TableRow>
 
@@ -180,10 +184,12 @@
 
                 <Switch
                     android:text="Reverse Sweep Direction:"
-                    android:id="@+id/switch1"
+                    android:id="@+id/switch_sweep_reverse"
                     android:layout_column="0"
                     android:layout_span="2"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:enabled="true"
+                    android:checked="false" />
             </TableRow>
 
             <TableRow
@@ -192,25 +198,18 @@
 
                 <Switch
                     android:text="&quot;Pong&quot; Mode:"
-                    android:id="@+id/switch2"
+                    android:id="@+id/switch_sweep_pong"
                     android:layout_column="0"
                     android:layout_span="2"
                     android:layout_height="wrap_content" />
             </TableRow>
 
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-            </TableRow>
         </TableLayout>
         </ScrollView>
 
         <ToggleButton
             android:text="New ToggleButton"
-            android:id="@+id/toggleButton"
-            android:layout_column="0"
-            android:layout_span="2"
+            android:id="@+id/toggle_sweep_active"
             android:layout_alignParentBottom="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"

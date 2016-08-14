@@ -47,9 +47,6 @@ public class FrequencyFragment extends Fragment implements WiFiSinus.onDDSError 
     private Context _context;
     private WiFiSinus _dds;
 
-    Integer frequency = 1000;
-    Byte phase = 0;
-
     private Spinner spinner_freq_units;
     private Spinner spinner_phase;
     private EditText edit_freq;
@@ -183,14 +180,14 @@ public class FrequencyFragment extends Fragment implements WiFiSinus.onDDSError 
             throw new RuntimeException(context.toString()
                     + " must implement OnDDSError Interface");
         }
-            if(_dds == null)
-            {
-                SharedPreferences prefs = getActivity().getPreferences(Context.MODE_PRIVATE);
-                String s = prefs.getString("client_server_address","http://192.168.1.125");
-                _dds = new WiFiSinus(s,getActivity());
-                _dds.setOnDDSError(this);
-            }
-            _context = context;
+        if(_dds == null)
+        {
+            SharedPreferences prefs = getActivity().getPreferences(Context.MODE_PRIVATE);
+            String s = prefs.getString("client_server_address","http://192.168.1.125");
+            _dds = new WiFiSinus(s,getActivity());
+            _dds.setOnDDSError(this);
+        }
+        _context = context;
 
 
     }
@@ -215,7 +212,7 @@ public class FrequencyFragment extends Fragment implements WiFiSinus.onDDSError 
         updateSeekbar();
         //switch_active.setChecked(true);
         //TODO: Uncomment this to activate DDS Update
-        _dds.setFrequency(frequency);
+        //_dds.setFrequency(frequency);
     }
 
     /**
@@ -303,7 +300,7 @@ public class FrequencyFragment extends Fragment implements WiFiSinus.onDDSError 
         v.findViewById(R.id.btn_p100).setOnClickListener(cl);
         v.findViewById(R.id.btn_p100k).setOnClickListener(cl);
     }
-    
+
 
     private void updateFreqFromSeekBar(int progress)
     {
@@ -312,7 +309,7 @@ public class FrequencyFragment extends Fragment implements WiFiSinus.onDDSError 
 
     private void updateSeekbar()
     {
-        seekBar_freq.setProgress((int) (Math.sqrt(((frequency - 1) /(50000000 - 1)) * 1000.0f * 1000.0f)));
+
     }
 
 

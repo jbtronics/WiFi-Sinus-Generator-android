@@ -95,6 +95,11 @@
     <string name="header_sweep">Sweep Output:</string>
     <string name="lower_frequency_limit">Lower frequency limit:</string>
 
+
+    <!-- For ChangeLogg -->
+    <string name="title_changelog">Change log</string>
+    <string name="changelog_close">Close</string>
+
     <!-- Strings related to Settings -->
 
 

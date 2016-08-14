@@ -35,6 +35,7 @@ import android.preference.RingtonePreference;
 import android.text.TextUtils;
 import android.view.MenuItem;
 import android.support.v4.app.NavUtils;
+import android.widget.Toast;
 
 import java.util.List;
 
@@ -136,6 +137,7 @@ public class ClientSettings extends AppCompatPreferenceActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setupActionBar();
+
     }
 
     /**
@@ -206,6 +208,15 @@ public class ClientSettings extends AppCompatPreferenceActivity {
             // bindPreferenceSummaryToValue(findPreference("example_text"));
             //bindPreferenceSummaryToValue(findPreference("example_list"));
             bindPreferenceSummaryToValue(findPreference("client_server_address"));
+
+            Preference changeLog = findPreference("pref_changelog");
+            changeLog.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+                @Override
+                public boolean onPreferenceClick(Preference preference) {
+                    Toast.makeText(getActivity(),"Test",Toast.LENGTH_SHORT).show();
+                    return true;
+                }
+            });
 
         }
 

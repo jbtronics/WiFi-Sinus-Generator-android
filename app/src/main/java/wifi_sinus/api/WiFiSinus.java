@@ -50,12 +50,12 @@ public class WiFiSinus {
 
     public interface onDDSError
     {
-        public void onDDSError(DDSAnswer error);
+        void onDDSError(DDSAnswer error);
     }
 
     public interface onDDSResult
     {
-        public void onDDSResult(DDSAnswer result);
+        void onDDSResult(DDSAnswer result);
     }
 
     /**
@@ -69,7 +69,7 @@ public class WiFiSinus {
         _context = context;
         _url = url;
         _finished = false;
-        _frequency = 0;
+        _frequency = 1000;
     }
 
     /**
@@ -93,8 +93,8 @@ public class WiFiSinus {
     /**
      * Activates the sweep output.
      * @param min The lower Frequency of the sweep (in Hz)
-     * @param max The upper Freuquency of the sweep (in Hz)
-     * @param delay The delay between two steps (in us)
+     * @param max The upper Frequency of the sweep (in Hz)
+     * @param delay The delay between two steps (in µs)
      * @param resolution The width of a step (in Hz)
      * @param reverse Should the sweep go from max to min?
      * @param pong Should the sweep change its direction after touch a border.
@@ -113,8 +113,8 @@ public class WiFiSinus {
     /**
      * Activates the sweep output.
      * @param min The lower Frequency of the sweep (in Hz)
-     * @param max The upper Freuquency of the sweep (in Hz)
-     * @param delay The delay between two steps (in us)
+     * @param max The upper Frequency of the sweep (in Hz)
+     * @param delay The delay between two steps (in µs)
      */
     public void activateSweep(int min, int max, int delay)
     {
@@ -344,11 +344,19 @@ public class WiFiSinus {
     }
 
 
+    /**
+     * Sets a handler, which is called if a error happens.
+     * @param handle The handler which should be called in case of error.
+     */
     public void setOnDDSError(onDDSError handle)
     {
         _dds_error = handle;
     }
 
+    /**
+     * Sets a handler, which is called if a command was executed successful;
+     * @param handle The handler which should be called.
+     */
     public void setOnDDRResult(onDDSResult handle)
     {
         _dds_result = handle;
@@ -364,6 +372,10 @@ public class WiFiSinus {
         return _finished;
     }
 
+    /**
+     * Returns the answer of the last command.
+     * @return The result.
+     */
     public DDSAnswer getResult()
     {
         _finished = false;
@@ -391,30 +403,37 @@ public class WiFiSinus {
         return d.toString();
     }
 
+    /**
+     * Sets the given frequency.
+     * @param d The desired frequency.
+     * @param unit The unit of the frequency.
+     */
     public void setFrequency(Double d, String unit)
     {
         Integer i = d.intValue();
 
-        if(unit.equals("Hz"))
-        {
-            i = d.intValue();
-            setFrequency(i);
-            return;
-        }
-        else if(unit.equals("kHz"))
-        {
-            d = d * 1000;
-            i = d.intValue();
-        }
-        else if(unit.equals("MHz"))
-        {
-            d = d * 1000000;
-            i = d.intValue();
+        switch (unit) {
+            case "Hz":
+                i = d.intValue();
+                setFrequency(i);
+                return;
+            case "kHz":
+                d = d * 1000;
+                i = d.intValue();
+                break;
+            case "MHz":
+                d = d * 1000000;
+                i = d.intValue();
+                break;
         }
         setFrequency(i);
-        return;
     }
 
+    /**
+     * Changes the Frequency with the given difference.
+     * @param change The difference between desired freq and momentary freq.
+     * @param unit The unit of the given change.
+     */
     public void changeFrequency(int change,String unit)
     {
         //Integer i = getRealFrequency(Double.parseDouble(edit_freq.getText().toString()));
@@ -433,9 +452,65 @@ public class WiFiSinus {
         setFrequency(_frequency);
     }
 
+    /**
+     * Changes the Frequency with the given difference.
+     * @param change the difference between desired freq and momentary freq. (in Hz)
+     */
     public void changeFrequency(int change)
     {
         changeFrequency(change,"Hz");
+    }
+
+    /**
+     * Converts a  frequency with the given unit into Hz.
+     * @param val the frequency value that should be converted
+     * @param unit The unit of the given frequency (Hz, kHz, MHz, GHz).
+     * @return the frequency converted into Hz.
+     */
+    public static int convertFreq(Double val, String unit)
+    {
+        Double d;
+        if(unit.contains("k"))  //kHz
+        {
+            d = val * 1000;
+        }
+        else if(unit.contains("M")) //MHz
+        {
+            d = val * 1000000;
+        }
+        else if(unit.contains("G")) //GHz
+        {
+            d = val * 1000000000;
+        }
+        else                        //Hz
+        {
+            d = val;
+        }
+        return d.intValue();
+
+    }
+
+    /**
+     * Converts a time value with the given unit into µs.
+     * @param val The value which should be converted.
+     * @param unit The unit of the given value.
+     * @return The given value converted to µs.
+     */
+    public static int convertDelay(Double val, String unit)
+    {
+        Double d;
+        switch (unit) {
+            case "ms":
+                d = val * 1000;
+                break;
+            case "s":
+                d = val * 1000000;
+                break;
+            default:
+                d = val;
+                break;
+        }
+        return d.intValue();
     }
 
 }
