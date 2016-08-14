@@ -1,0 +1,269 @@
+ <!--
+  ~ Copyright (c) 2016 Jan Böhmer
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~ http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="jbtronics.wifi_sinus.FrequencyFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="top|left|bottom|center|right"
+        android:orientation="vertical"
+        >
+
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:stretchColumns="0"
+            android:layout_marginRight="0dp"
+            android:layout_marginLeft="0dp"
+            android:layout_marginTop="0dp">
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:text="@string/header_frequency"
+                    android:id="@+id/view_header"
+                    android:layout_column="0"
+                    android:layout_width="wrap_content"
+                    android:layout_marginLeft="3dp" />
+
+                <Switch
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/freq_active"
+                    android:id="@+id/switch_freq_active"
+                    android:layout_column="1"
+                    android:checked="true"
+                    android:layout_marginRight="3dp" />
+
+
+            </TableRow>
+
+            <TableRow
+                android:layout_height="match_parent"
+                android:layout_width="fill_parent">
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="numberDecimal"
+                    android:ems="10"
+                    android:id="@+id/edit_freq"
+                    android:layout_marginLeft="3dp"
+                    android:numeric="decimal"
+                    android:text="1000"
+                    android:textAlignment="textEnd" />
+
+                <Spinner
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:id="@+id/spinner_freq_units"
+                    android:layout_column="1"
+                    android:layout_span="0"
+                    android:spinnerMode="dropdown"
+                    android:textAlignment="textStart"
+                    android:layout_marginRight="3dp"
+                    android:entries="@array/freq_units_array" />
+            </TableRow>
+
+        </TableLayout>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/scrollView">
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:stretchColumns="0,1"
+            android:id="@+id/tableLayout"
+            android:layout_marginLeft="3dp"
+            android:layout_marginRight="3dp">
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <SeekBar
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/seek_freq"
+                    android:layout_column="0"
+                    android:layout_span="2"
+                    android:layout_marginLeft="3dp"
+                    android:layout_marginRight="3dp"
+                    android:max="50000000"
+                    android:indeterminate="false"
+                    android:progress="0" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <Button
+                    android:text="-1 Hz"
+                    android:id="@+id/btn_m1"
+                    android:layout_column="0"
+                    android:layout_width="fill_parent" />
+
+                <Button
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:text="+1 Hz"
+                    android:id="@+id/btn_p1"
+                    android:layout_column="1"
+                    android:nestedScrollingEnabled="false" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="-10Hz"
+                    android:id="@+id/btn_m10"
+                    android:layout_column="0" />
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="+10Hz"
+                    android:id="@+id/btn_p10"
+                    android:layout_column="1" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <Button
+                    android:text="-100Hz"
+                    android:id="@+id/btn_m100"
+                    android:layout_column="0" />
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="+100Hz"
+                    android:id="@+id/btn_p100"
+                    android:layout_column="1" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <Button
+                    android:text="-1kHz"
+                    android:id="@+id/btn_m1k"
+                    android:layout_column="0" />
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="+1kHz"
+                    android:id="@+id/btn_p1k"
+                    android:layout_column="1" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <Button
+                    android:text="-10kHz"
+                    android:id="@+id/btn_m10k"
+                    android:layout_column="0" />
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="+10kHz"
+                    android:id="@+id/btn_p10k"
+                    android:layout_column="1" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <Button
+                    android:text="-100kHz"
+                    android:id="@+id/btn_m100k"
+                    android:layout_column="0" />
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="+100kHz"
+                    android:id="@+id/btn_p100k"
+                    android:layout_column="1" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <Button
+                    android:text="-1MHz"
+                    android:id="@+id/btn_m1M"
+                    android:layout_column="0" />
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="+1MHz"
+                    android:id="@+id/btn_p1M"
+                    android:layout_column="1" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="@string/header_phase"
+                    android:id="@+id/textView2"
+                    android:layout_column="0" />
+
+                <Spinner android:id="@+id/spinner_phase"
+                    android:layout_column="1"
+                    android:layout_span="1"
+                    android:spinnerMode="dialog"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content" />
+            </TableRow>
+        </TableLayout>
+        </ScrollView>
+
+     </LinearLayout>
+
+
+</FrameLayout>

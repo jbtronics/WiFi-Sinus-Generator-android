@@ -18,6 +18,7 @@ package jbtronics.wifi_sinus;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -85,6 +86,9 @@ public class CurvesFragment extends Fragment {
             throw new RuntimeException(context.toString()
                     + " must implement OnDDSError Interface");
         }
+
+        AppCompatActivity main = ((AppCompatActivity) getActivity());
+        main.getSupportActionBar().setTitle(R.string.action_bar_curves);
     }
 
     @Override

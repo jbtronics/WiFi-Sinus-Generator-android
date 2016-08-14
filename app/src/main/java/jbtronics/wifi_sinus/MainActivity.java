@@ -29,6 +29,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.inscription.WhatsNewDialog;
+
 import wifi_sinus.api.DDSAnswer;
 import wifi_sinus.api.WiFiSinus;
 
@@ -65,6 +67,9 @@ public class MainActivity extends AppCompatActivity
         FragmentTransaction ft = fm.beginTransaction();
         ft.replace(R.id.main_frame,frequencyFragment,FrequencyFragment.TAG);
         ft.commit();
+
+        final WhatsNewDialog whatsNewDialog = new WhatsNewDialog(this);
+        whatsNewDialog.show();
 
     }
 

@@ -36,6 +36,8 @@ import android.text.TextUtils;
 import android.view.MenuItem;
 import android.support.v4.app.NavUtils;
 import android.widget.Toast;
+import com.inscription.ChangeLogDialog;
+import com.inscription.CreditsDialog;
 
 import java.util.List;
 
@@ -213,7 +215,18 @@ public class ClientSettings extends AppCompatPreferenceActivity {
             changeLog.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                 @Override
                 public boolean onPreferenceClick(Preference preference) {
-                    Toast.makeText(getActivity(),"Test",Toast.LENGTH_SHORT).show();
+                    ChangeLogDialog _dialog = new ChangeLogDialog(getActivity());
+                    _dialog.show();
+                    return true;
+                }
+            });
+
+            Preference credits = findPreference("pref_credits");
+            credits.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+                @Override
+                public boolean onPreferenceClick(Preference preference) {
+                    CreditsDialog _dialog = new CreditsDialog(getActivity());
+                    _dialog.show();
                     return true;
                 }
             });

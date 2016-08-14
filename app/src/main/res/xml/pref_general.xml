@@ -30,10 +30,20 @@
         android:summary="@string/settings_address_summary"
         />
 
-    <Preference
-        android:title="Changelog"
-        android:summary="Show Changelog"
-        android:key="pref_changelog"
+    <PreferenceCategory
+        android:title="@string/settings_category_credits"
+        >
+
+        <Preference
+            android:title="Changelog"
+            android:summary="Show Changelog"
+            android:key="pref_changelog" />
+
+        <Preference
+            android:title="Credits"
+            android:summary="Show Credits"
+            android:key="pref_credits"
         />
+    </PreferenceCategory>
 
 </PreferenceScreen>

@@ -21,7 +21,7 @@
     <string name="header_frequency">Frequenz:</string>
     <string name="header_phase">Phase:</string>
     <string name="mode_curves">Filterkurven</string>
-    <string name="mode_freq">Ausgabefrequenz</string>
+    <string name="mode_freq">Frequenzerzeugung</string>
     <string name="mode_sweep">Sweep</string>
     <string name="mode_tools">Werkzeuge</string>
     <string name="navigation_drawer_close">Schließe die Navigationsleiste</string>
@@ -36,5 +36,16 @@
     <string name="tools_header_red">Rote LED:</string>
     <string name="tools_led_off">Aus</string>
     <string name="tools_led_on">An</string>
-    <string name="hello_blank_fragment">BlaBlub</string>
+    <string name="header_sweep">Sweep Ausgabe:</string>
+    <string name="lower_frequency_limit">Untere Frequenz:</string>
+    <string name="settings_category_credits">Version und Credits</string>
+    <string name="delay_between_two_steps">Wartezeit zwischen zwei Schritten:</string>
+    <string name="upper_frequency_limit">Obere Frequenz:</string>
+    <string name="quot_pong_quot_mode">\"Pong\" Modus:</string>
+    <string name="reverse_sweep_direction">Sweep Richtung umkehren:</string>
+    <string name="width_of_a_frequency_step">Größe eines Frequenzschrittes:</string>
+    <string name="action_bar_curves">Filterkurven</string>
+    <string name="action_bar_freq">Frequenz</string>
+    <string name="action_bar_sweep">Sweep </string>
+    <string name="action_bar_tools">Werkzeuge</string>
 </resources>

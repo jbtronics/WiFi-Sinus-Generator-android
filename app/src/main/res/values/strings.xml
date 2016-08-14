@@ -89,6 +89,11 @@
     <string name="tools_led_on">ON</string>
     <string name="tools_led_off">OFF</string>
     <string name="tools_led_pwm" translatable="false">PWM:</string>
+    <string name="action_bar_tools">Tools</string>
+
+    <string name="action_bar_sweep">Sweep Output</string>
+    <string name="action_bar_curves">Filter Curves</string>
+    <string name="action_bar_freq">Frequency Generator</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
@@ -96,11 +101,12 @@
     <string name="lower_frequency_limit">Lower frequency limit:</string>
 
 
-    <!-- For ChangeLogg -->
-    <string name="title_changelog">Change log</string>
-    <string name="changelog_close">Close</string>
-
     <!-- Strings related to Settings -->
-
+    <string name="settings_category_credits">Version and Credits</string>
+    <string name="upper_frequency_limit">Upper frequency limit:</string>
+    <string name="delay_between_two_steps">Delay between two steps:</string>
+    <string name="width_of_a_frequency_step">Width of a frequency step:</string>
+    <string name="reverse_sweep_direction">Reverse Sweep Direction:</string>
+    <string name="quot_pong_quot_mode">\"Pong\" Mode:</string>
 
 </resources>
