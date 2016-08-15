@@ -45,8 +45,8 @@ public class WiFiSinus {
 
     private DDSMode _mode;
 
-    private static final int FREQ_MAX = 50000000; //50MHz
-    private static final int FREQ_MIN = 1; //1Hz
+    public static final int FREQ_MAX = 50000000; //50MHz
+    public static final int FREQ_MIN = 1; //1Hz
 
     public interface onDDSError
     {

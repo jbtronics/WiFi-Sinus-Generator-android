@@ -48,4 +48,11 @@
     <string name="action_bar_freq">Frequenz</string>
     <string name="action_bar_sweep">Sweep </string>
     <string name="action_bar_tools">Werkzeuge</string>
+    <string name="sweep_error_delay_out_of_bound">Die Wartezeit muss größer 0 sein!</string>
+    <string name="sweep_error_max_out_of_bound">Die obere Grenze muss zwischen 0Hz und 50Mhz liegen!</string>
+    <string name="sweep_error_min_bigger_than_max">Die obere Grenze muss höher liegen als die untere Grenze!</string>
+    <string name="sweep_error_min_out_of_bound">Die untere Grenze muss zwischen 0Hz und 50Mhz liegen!</string>
+    <string name="sweep_error_parse_exception">Ungültige Zahl! Prüfen sie Ihre Eingabe!</string>
+    <string name="sweep_error_res_out_of_bound">Frequenzschritte müssen größer 0Hz sein!</string>
+    <string name="sweep_error_step_too_big">Frequenzschritt zu groß!</string>
 </resources>

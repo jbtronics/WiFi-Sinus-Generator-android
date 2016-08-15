@@ -108,5 +108,12 @@
     <string name="width_of_a_frequency_step">Width of a frequency step:</string>
     <string name="reverse_sweep_direction">Reverse Sweep Direction:</string>
     <string name="quot_pong_quot_mode">\"Pong\" Mode:</string>
+    <string name="sweep_error_max_out_of_bound">Upper frequency limit has to be between 0Hz and 50MHz!</string>
+    <string name="sweep_error_min_bigger_than_max">Upper limit has to be bigger than the lower limit!</string>
+    <string name="sweep_error_min_out_of_bound">Lower frequency limit has to be between 0Hz and 50MHz!</string>
+    <string name="sweep_error_parse_exception">Could not parse number! Please Check your input!</string>
+    <string name="sweep_error_delay_out_of_bound">Delay has to be bigger than 0 us!</string>
+    <string name="sweep_error_res_out_of_bound">Step width has to be bigger than 0Hz!</string>
+    <string name="sweep_error_step_too_big">Step width too big!</string>
 
 </resources>

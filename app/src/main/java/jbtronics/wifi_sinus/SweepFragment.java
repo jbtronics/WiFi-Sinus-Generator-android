@@ -28,6 +28,7 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Switch;
+import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import wifi_sinus.api.DDSAnswer;
@@ -116,17 +117,63 @@ public class SweepFragment extends Fragment  implements WiFiSinus.onDDSError  {
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 if(b)   //Button active
                 {
-
-                    Integer max = WiFiSinus.convertFreq(Double.valueOf(edit_sweep_max.getText().toString()), spinner_max_units.getSelectedItem().toString());
-                    Integer min = WiFiSinus.convertFreq(Double.valueOf(edit_sweep_min.getText().toString()), spinner_min_units.getSelectedItem().toString());
-                    Integer res = WiFiSinus.convertFreq(Double.valueOf(edit_sweep_res.getText().toString()), spinner_res_units.getSelectedItem().toString());
-                    Integer delay = WiFiSinus.convertDelay(Double.valueOf(edit_sweep_delay.getText().toString()), spinner_delay_units.getSelectedItem().toString());
+                    Integer max, min, res, delay;
+                    try {   //If input was wrong!!
+                        max = WiFiSinus.convertFreq(Double.valueOf(edit_sweep_max.getText().toString()), spinner_max_units.getSelectedItem().toString());
+                        min = WiFiSinus.convertFreq(Double.valueOf(edit_sweep_min.getText().toString()), spinner_min_units.getSelectedItem().toString());
+                        res = WiFiSinus.convertFreq(Double.valueOf(edit_sweep_res.getText().toString()), spinner_res_units.getSelectedItem().toString());
+                        delay = WiFiSinus.convertDelay(Double.valueOf(edit_sweep_delay.getText().toString()), spinner_delay_units.getSelectedItem().toString());
+                    }
+                    catch (NumberFormatException e)
+                    {
+                        Toast.makeText(getActivity(), R.string.sweep_error_parse_exception,Toast.LENGTH_SHORT).show();
+                        compoundButton.setChecked(false);
+                        return;
+                    }
+                    finally {
+                        max = 0;
+                        min = 0;
+                        res = 0;
+                        delay = 0;
+                    }
 
                     Boolean reverse = switch_reverse.isChecked();
                     Boolean pong = switch_pong.isChecked();
 
-                    //Activate Sweep
-                    _dds.activateSweep(min,max,delay,res,reverse,pong);
+                    if(min>=max)
+                    {
+                        Toast.makeText(getActivity(), R.string.sweep_error_min_bigger_than_max,Toast.LENGTH_SHORT).show();
+                        compoundButton.setChecked(false);
+                    }
+                    else if(max>WiFiSinus.FREQ_MAX||max<WiFiSinus.FREQ_MIN)
+                    {
+                        Toast.makeText(getActivity(), R.string.sweep_error_max_out_of_bound,Toast.LENGTH_SHORT).show();
+                        compoundButton.setChecked(false);
+                    }
+                    else if(min>WiFiSinus.FREQ_MAX||min<WiFiSinus.FREQ_MIN)
+                    {
+                        Toast.makeText(getActivity(), R.string.sweep_error_min_out_of_bound,Toast.LENGTH_SHORT).show();
+                        compoundButton.setChecked(false);
+                    }
+                    else if(delay>=0)
+                    {
+                        Toast.makeText(getActivity(), R.string.sweep_error_delay_out_of_bound,Toast.LENGTH_SHORT).show();
+                        compoundButton.setChecked(false);
+                    }
+                    else if(res>=0)
+                    {
+                        Toast.makeText(getActivity(), R.string.sweep_error_res_out_of_bound,Toast.LENGTH_SHORT).show();
+                        compoundButton.setChecked(false);
+                    }
+                    else if(res> (max - min))
+                    {
+                        Toast.makeText(getActivity(), R.string.sweep_error_step_too_big,Toast.LENGTH_SHORT).show();
+                        compoundButton.setChecked(false);
+                    }
+                    else {
+                        //Activate Sweep
+                        _dds.activateSweep(min, max, delay, res, reverse, pong);
+                    }
                 }
                 else   //Deactivate Sweep
                 {
