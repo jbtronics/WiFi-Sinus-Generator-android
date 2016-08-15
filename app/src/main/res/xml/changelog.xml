@@ -22,6 +22,8 @@
         <change>Added Changelog and Credits Dialog</change>
         <change>Move Fragment titles into Action Bar</change>
         <change>New Logo</change>
+        <change>Added error messages and exception handling</change>
+        <change>Now can update PWM from EditBoxes</change>
     </release>
     <release version="1.0" versioncode="1">
         <change>Initial Release</change>

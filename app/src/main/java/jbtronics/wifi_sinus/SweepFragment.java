@@ -132,12 +132,6 @@ public class SweepFragment extends Fragment  implements WiFiSinus.onDDSError  {
                         Log.w(TAG,"Parsing error!",e);
                         return;
                     }
-                    finally {
-                        max = 0;
-                        min = 0;
-                        res = 0;
-                        delay = 0;
-                    }
 
                     Boolean reverse = switch_reverse.isChecked();
                     Boolean pong = switch_pong.isChecked();
@@ -157,17 +151,17 @@ public class SweepFragment extends Fragment  implements WiFiSinus.onDDSError  {
                         Toast.makeText(getActivity(), R.string.sweep_error_min_out_of_bound,Toast.LENGTH_SHORT).show();
                         compoundButton.setChecked(false);
                     }
-                    else if(delay>=0)
+                    else if(delay<=0)
                     {
                         Toast.makeText(getActivity(), R.string.sweep_error_delay_out_of_bound,Toast.LENGTH_SHORT).show();
                         compoundButton.setChecked(false);
                     }
-                    else if(res>=0)
+                    else if(res<=0)
                     {
                         Toast.makeText(getActivity(), R.string.sweep_error_res_out_of_bound,Toast.LENGTH_SHORT).show();
                         compoundButton.setChecked(false);
                     }
-                    else if(res> (max - min))
+                    else if(res > (max - min))
                     {
                         Toast.makeText(getActivity(), R.string.sweep_error_step_too_big,Toast.LENGTH_SHORT).show();
                         compoundButton.setChecked(false);
