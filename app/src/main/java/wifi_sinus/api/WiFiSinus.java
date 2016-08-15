@@ -16,11 +16,14 @@
 package wifi_sinus.api;
 
 import android.content.Context;
+import android.util.ArrayMap;
 import android.util.Log;
 
 import com.android.volley.*;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+
+import java.util.Arrays;
 
 /**
  *  A Class to control the WiFi-Sinus Generator.
@@ -298,7 +301,7 @@ public class WiFiSinus {
             public void onErrorResponse(VolleyError error) {
                 _finished = true;
                 if(error.networkResponse != null) {
-                    _result = new DDSAnswer( error.getMessage(), error.networkResponse.statusCode, set_url, DDSErrorLocation.Connection);
+                    _result = new DDSAnswer(new String(error.networkResponse.data), error.networkResponse.statusCode, set_url, DDSErrorLocation.Connection);
                 }
                 else
                 {
