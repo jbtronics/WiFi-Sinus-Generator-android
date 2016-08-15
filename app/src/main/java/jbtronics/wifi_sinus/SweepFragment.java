@@ -20,6 +20,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -128,6 +129,7 @@ public class SweepFragment extends Fragment  implements WiFiSinus.onDDSError  {
                     {
                         Toast.makeText(getActivity(), R.string.sweep_error_parse_exception,Toast.LENGTH_SHORT).show();
                         compoundButton.setChecked(false);
+                        Log.w(TAG,"Parsing error!",e);
                         return;
                     }
                     finally {

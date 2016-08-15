@@ -20,6 +20,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -33,6 +34,7 @@ import android.widget.SeekBar;
 import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import wifi_sinus.api.DDSAnswer;
 import wifi_sinus.api.WiFiSinus;
@@ -223,9 +225,17 @@ public class FrequencyFragment extends Fragment implements WiFiSinus.onDDSError 
      */
     private void updateEdit()
     {
-        Double d = Double.parseDouble(edit_freq.getText().toString());
-        String unit = spinner_freq_units.getSelectedItem().toString();
-        _dds.setFrequency(d,unit);
+        try
+        {
+            Double d = Double.parseDouble(edit_freq.getText().toString());
+            String unit = spinner_freq_units.getSelectedItem().toString();
+            _dds.setFrequency(d,unit);
+        }
+        catch (NumberFormatException e)
+        {
+            Toast.makeText(getActivity(),R.string.sweep_error_parse_exception, Toast.LENGTH_SHORT).show();
+            Log.w(TAG,"Parsing error!",e);
+        }
     }
 
 
@@ -234,10 +244,17 @@ public class FrequencyFragment extends Fragment implements WiFiSinus.onDDSError 
         View.OnClickListener cl = new View.OnClickListener() {
             @Override
             public void onClick(final View view) {
+                try {
+                    Double freq = Double.parseDouble(edit_freq.getText().toString());
+                    String unit = spinner_freq_units.getSelectedItem().toString();
+                    _dds.setFrequency(freq, unit);
+                }
+                catch (NumberFormatException e)
+                {
+                    Toast.makeText(getActivity(),R.string.sweep_error_parse_exception, Toast.LENGTH_SHORT).show();
+                    Log.w(TAG,"Parsing error!",e);
+                }
 
-                Double freq = Double.parseDouble(edit_freq.getText().toString());
-                String unit = spinner_freq_units.getSelectedItem().toString();
-                _dds.setFrequency(freq,unit);
                 switch(view.getId()) {
                     case R.id.btn_m1:
                         _dds.changeFrequency(-1);
