@@ -20,12 +20,17 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.RadioGroup;
 import android.widget.SeekBar;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import wifi_sinus.api.DDSAnswer;
 import wifi_sinus.api.LedState;
@@ -43,6 +48,8 @@ public class ToolsFragment extends Fragment implements WiFiSinus.onDDSError{
     private RadioGroup group_green;
     private EditText edit_red_pwm;
     private EditText edit_green_pwm;
+    private SeekBar seek_red;
+    private SeekBar seek_green;
 
     private WiFiSinus.onDDSError mListener;
 
@@ -79,8 +86,8 @@ public class ToolsFragment extends Fragment implements WiFiSinus.onDDSError{
         ((EditText) v.findViewById(R.id.edit_red_pwm)).setText("512");
         ((EditText) v.findViewById(R.id.edit_green_pwm)).setText("512");
 
-        final SeekBar seek_red = (SeekBar) v.findViewById(R.id.seek_red_pwm);
-        final SeekBar seek_green = (SeekBar) v.findViewById(R.id.seek_green_pwm);
+        seek_red = (SeekBar) v.findViewById(R.id.seek_red_pwm);
+        seek_green = (SeekBar) v.findViewById(R.id.seek_green_pwm);
 
         seek_red.setEnabled(false);
         seek_green.setEnabled(false);
@@ -131,6 +138,32 @@ public class ToolsFragment extends Fragment implements WiFiSinus.onDDSError{
             }
         });
 
+        edit_green_pwm.setImeActionLabel("Set", KeyEvent.KEYCODE_ENTER);
+        edit_green_pwm.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_NULL && event.getAction() == KeyEvent.ACTION_DOWN)
+                {
+                    updateGreenPWM();
+                    return true;
+                }
+                return false;
+            }
+        });
+
+        edit_red_pwm.setImeActionLabel("Set", KeyEvent.KEYCODE_ENTER);
+        edit_red_pwm.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_NULL && event.getAction() == KeyEvent.ACTION_DOWN)
+                {
+                    updateRedPWM();
+                    return true;
+                }
+                return false;
+            }
+        });
+
 
 
         seek_red.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
@@ -173,14 +206,42 @@ public class ToolsFragment extends Fragment implements WiFiSinus.onDDSError{
 
     private void updateRedPWM()
     {
-        Integer pwm = Integer.valueOf(edit_red_pwm.getText().toString());
-        _dds.RedPWM(pwm);
+        try {
+            Integer pwm = Integer.valueOf(edit_red_pwm.getText().toString());
+            if(pwm<0 || pwm >= 1024)
+            {
+                Toast.makeText(getActivity(), R.string.tools_error_pwm_out_of_bound,Toast.LENGTH_SHORT).show();
+            }
+            else {
+                seek_red.setProgress(pwm);
+                _dds.RedPWM(pwm);
+            }
+        }
+        catch (NumberFormatException e)
+        {
+            Toast.makeText(getActivity(), R.string.tools_error_red_parse,Toast.LENGTH_SHORT).show();
+            Log.w("TAG","Parsing Error:",e);
+        }
     }
 
     private void updateGreenPWM()
     {
-        Integer pwm = Integer.valueOf(edit_green_pwm.getText().toString());
-        _dds.GreenPWM(pwm);
+        try {
+            Integer pwm = Integer.valueOf(edit_green_pwm.getText().toString());
+            if(pwm<0 || pwm >= 1024)
+            {
+                Toast.makeText(getActivity(),R.string.tools_error_pwm_out_of_bound,Toast.LENGTH_SHORT).show();
+            }
+            else {
+                seek_green.setProgress(pwm);
+                _dds.GreenPWM(pwm);
+            }
+        }
+        catch (NumberFormatException e)
+        {
+            Toast.makeText(getActivity(), R.string.tools_error_green_parse,Toast.LENGTH_SHORT).show();
+            Log.w("TAG","Parsing Error:",e);
+        }
     }
 
     @Override

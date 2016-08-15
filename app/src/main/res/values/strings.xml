@@ -115,5 +115,8 @@
     <string name="sweep_error_delay_out_of_bound">Delay has to be bigger than 0 us!</string>
     <string name="sweep_error_res_out_of_bound">Step width has to be bigger than 0Hz!</string>
     <string name="sweep_error_step_too_big">Step width too big!</string>
+    <string name="tools_error_pwm_out_of_bound">PWM value has to be between 0 and 1024!</string>
+    <string name="tools_error_red_parse">Could not parse red value! Check your input!</string>
+    <string name="tools_error_green_parse">Could not pare green value! Check your input!</string>
 
 </resources>
