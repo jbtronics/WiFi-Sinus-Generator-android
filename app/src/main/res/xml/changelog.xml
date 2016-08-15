@@ -20,6 +20,8 @@
         <change>Make PWM Sliders working</change>
         <change>Clean Up Code</change>
         <change>Added Changelog and Credits Dialog</change>
+        <change>Move Fragment titles into Action Bar</change>
+        <change>New Logo</change>
     </release>
     <release version="1.0" versioncode="1">
         <change>Initial Release</change>

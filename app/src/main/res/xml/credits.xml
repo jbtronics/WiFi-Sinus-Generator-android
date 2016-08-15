@@ -39,4 +39,18 @@
         <url title="Inscription on Github">https://github.com/MartinvanZ/Inscription</url>
     </websites>
     <copyright>(c) 2013 Martin van Zuilekom. Licensed under the Apache License, Version 2.0 (the "License").<url>http://www.apache.org/licenses/LICENSE-2.0</url></copyright>
+
+    <section title="Logo">
+        <function title="Created by">
+            <credit>Jan Boehmer</credit>
+        </function>
+        <function title="Created with">
+            <credit>Launcer Icon Creator from Android Asset Studio</credit>
+            <credit>License: CC BY 3.0</credit>
+        </function>
+    </section>
+    <websites>
+        <url title="Android Asset Studio">https://romannurik.github.io/AndroidAssetStudio/</url>
+    </websites>
+
 </credits>
