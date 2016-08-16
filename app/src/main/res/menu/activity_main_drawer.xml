@@ -35,7 +35,7 @@
             android:title="@string/mode_tools" />
     </group>
 
-    <item android:title="Settings">
+    <item android:title="@string/nav_header_settings">
         <menu>
             <item
                 android:id="@+id/nav_server_settings"

@@ -55,4 +55,8 @@
     <string name="sweep_error_parse_exception">Ungültige Zahl! Prüfen sie Ihre Eingabe!</string>
     <string name="sweep_error_res_out_of_bound">Frequenzschritte müssen größer 0Hz sein!</string>
     <string name="sweep_error_step_too_big">Frequenzschritt zu groß!</string>
+    <string name="tools_error_green_parse">Konnte den Wert für grün nicht verarbeiten. Prüfen sie ihre Eingabe!</string>
+    <string name="tools_error_pwm_out_of_bound">Der PWM muss zwischen 0 und 1024 liegen!</string>
+    <string name="tools_error_red_parse">Konnte den Wert für grün nicht verarbeiten. Prüfen sie ihre Eingabe!</string>
+    <string name="nav_header_settings">Einstellungen</string>
 </resources>
